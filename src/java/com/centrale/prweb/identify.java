@@ -5,6 +5,7 @@
  */
 package com.centrale.prweb;
 
+import com.centrale.prweb.LDAP.LDAP;
 import com.sun.istack.internal.logging.Logger;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -48,13 +49,13 @@ public class identify extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("dopost");
-        if (request.getParameter("login").equals("moi") && request.getParameter("password").equals("1234")){
+        if (LDAP.identifyLDAPUID(request.getParameter("login"), request.getParameter("password"))){
+// version d'avant :
+//if (request.getParameter("login").equals("moi") && request.getParameter("password").equals("1234")){
             jspcalling("page.jsp", request, response);
         }
         else {
             jspcalling("index.jsp", request, response);
-
         }
     }
 
