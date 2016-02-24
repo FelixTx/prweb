@@ -5,8 +5,11 @@
  */
 package com.centrale.prweb;
 
+import com.sun.istack.internal.logging.Logger;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,7 +34,7 @@ public class identify extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+            response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -46,7 +49,6 @@ public class identify extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -56,9 +58,8 @@ public class identify extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+            jspcalling("index.jsp", request, response);
     }
 
     /**
@@ -72,7 +73,9 @@ public class identify extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        if (request.getParameter("login")=="moi" && request.getParameter("password")=="1234"){
+            jspcalling("page.html", request, response);
+        }
     }
 
     /**
@@ -83,6 +86,18 @@ public class identify extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
+protected static void jspcalling(String page, HttpServletRequest request, HttpServletResponse response)
+throws ServletException, IOException {
+        try{
+            RequestDispatcher dispatcher = request.getRequestDispatcher(page);
+            response.setHeader("Content-Type","text/html;charset=UTF-8");
+            dispatcher.include(request,response);
+        } catch (IOException ex){
+            Logger.getLogger(identify.class).log(Level.SEVERE,null,ex);    
+        } catch (ServletException ex){
+         Logger.getLogger(identify.class).log(Level.SEVERE,null,ex);
+        }
+    }
 }

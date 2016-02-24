@@ -14,7 +14,7 @@
 		<link href="login.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body>
-		<form action="action.php" method="post" >
+		<form action="identify" method="post" >
 			<div id="connexion">
 				<fieldset>
 					<table border="0" cellspacing="0" cellpadding="2" width="100%">
