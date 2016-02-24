@@ -52,6 +52,10 @@ public class identify extends HttpServlet {
         if (request.getParameter("login").equals("moi") && request.getParameter("password").equals("1234")){
             jspcalling("page.jsp", request, response);
         }
+        else {
+            jspcalling("index.jsp", request, response);
+
+        }
     }
 
     /**
